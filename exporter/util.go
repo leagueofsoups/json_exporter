@@ -14,6 +14,7 @@
 package exporter
 
 import (
+	"time"	
 	"context"
 	"errors"
 	"fmt"
@@ -53,6 +54,13 @@ func SanitizeValue(s string) (float64, error) {
 		}
 		return 0.0, nil
 	}
+
+	var time_format = "2006-01-02T15:04:05.999999Z"
+	date, err := time.Parse(time_format, s);
+	if err == nil {
+		return float64(date.Unix()), nil
+	}
+	
 	resultErr = resultErr + "; " + fmt.Sprintf("%s", err)
 
 	if s == "<nil>" {
