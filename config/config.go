@@ -30,6 +30,7 @@ type Metric struct {
 	EpochTimestamp string
 	Help           string
 	Values         map[string]string
+	Format         string
 }
 
 type ScrapeType string
@@ -89,6 +90,9 @@ func LoadConfig(configPath string) (Config, error) {
 			if module.Metrics[i].ValueType == "" {
 				module.Metrics[i].ValueType = ValueTypeUntyped
 			}
+                        if module.Metrics[i].Format == "" {
+                                module.Metrics[i].Format = "not_date"
+                        }
 		}
 	}
 
